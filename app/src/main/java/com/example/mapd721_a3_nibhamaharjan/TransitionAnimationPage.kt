@@ -1,6 +1,6 @@
 package com.example.mapd721_a3_nibhamaharjan
 
-import androidx.compose.animation.core.*
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
@@ -13,23 +13,17 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.times
+import androidx.compose.animation.core.tween
 
 @Composable
 fun TransitionAnimationPage() {
-    var rocketPosition by remember { mutableStateOf(0.dp) }
+    var isRocketAtTop by remember { mutableStateOf(false) }
 
-    val rocketAnimationSpec = rememberInfiniteTransition(label = "").animateFloat(
-        initialValue = 0f,
-        targetValue = 1f,
-        animationSpec = infiniteRepeatable(
-            animation = tween(durationMillis = 2000, easing = LinearEasing),
-            repeatMode = RepeatMode.Reverse
-        ), label = ""
+    val rocketPosition by animateFloatAsState(
+        targetValue = if (isRocketAtTop) 0f else 1f,
+        animationSpec = tween(durationMillis = 2000)
     )
-
-    LaunchedEffect(Unit) {
-        rocketPosition = rocketAnimationSpec.value.dp
-    }
 
     Surface(
         modifier = Modifier.fillMaxSize(),
@@ -40,21 +34,22 @@ fun TransitionAnimationPage() {
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            AnimatedRocket(image = painterResource(id = R.drawable.rocketship), modifier = Modifier.offset(y = rocketPosition))
+            AnimatedRocket(
+                image = painterResource(id = R.drawable.rocketship),
+                modifier = Modifier.offset(y = (1 - rocketPosition) * 300.dp)
+                    .align(Alignment.End)
+            )
             Spacer(modifier = Modifier.height(16.dp))
             Button(
-                onClick = {
-                    // Start or restart the animation when the button is clicked
-                    rocketPosition = 0.dp
-                },
+                onClick = { isRocketAtTop = !isRocketAtTop },
                 modifier = Modifier.padding(8.dp)
+                    .align(Alignment.Start)
             ) {
-                Text(text = "Animate Rocket")
+                Text(text = if (isRocketAtTop) "Animate Rocket Down" else "Animate Rocket Up")
             }
         }
     }
 }
-
 
 @Composable
 fun AnimatedRocket(image: Painter, modifier: Modifier = Modifier) {

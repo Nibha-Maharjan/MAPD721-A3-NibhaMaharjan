@@ -44,16 +44,16 @@ fun EnterExitAnimationPage() {
                 Image(
                     painter = painterResource(id = R.drawable.orange),
                     contentDescription = "Orange Image",
-                    modifier = Modifier.size(100.dp)
+                    modifier = Modifier.size(500.dp)
                 )
             }
 
             Spacer(modifier = Modifier.height(16.dp))
-
             // Button to toggle visibility
             Button(
                 onClick = { visible = !visible },
-                modifier = Modifier.padding(8.dp)
+                modifier = Modifier.padding(8.dp),
+
             ) {
                 Text(text = if (visible) "Hide Image" else "Show Image")
             }
