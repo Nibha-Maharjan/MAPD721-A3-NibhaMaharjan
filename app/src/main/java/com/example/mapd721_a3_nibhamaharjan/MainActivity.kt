@@ -1,3 +1,6 @@
+//Name: Nibha Maharjan
+//StudentID: 301282952
+//Assignment 3
 package com.example.mapd721_a3_nibhamaharjan
 
 import android.os.Bundle

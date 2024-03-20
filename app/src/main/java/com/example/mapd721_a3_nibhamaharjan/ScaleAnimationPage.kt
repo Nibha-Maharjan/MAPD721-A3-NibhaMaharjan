@@ -34,7 +34,7 @@ fun ScaleAnimationPage() {
                     isScaled = !isScaled
                 },
                 modifier = Modifier
-                    .size(200.dp * scaleFactor) // Adjust the size based on scaleFactor
+                    .size(200.dp * scaleFactor)
             ) {
                 Text(text = "Scale Button")
             }

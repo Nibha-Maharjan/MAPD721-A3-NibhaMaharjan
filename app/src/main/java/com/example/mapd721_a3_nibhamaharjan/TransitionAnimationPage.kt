@@ -45,7 +45,7 @@ fun TransitionAnimationPage() {
                 modifier = Modifier.padding(8.dp)
                     .align(Alignment.Start)
             ) {
-                Text(text = if (isRocketAtTop) "Animate Rocket Down" else "Animate Rocket Up")
+                Text(text = if (isRocketAtTop) "Animate Rocket Up" else "Animate Rocket Down")
             }
         }
     }
